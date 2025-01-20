@@ -1,0 +1,33 @@
+{
+  "name": "frontend",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Frontend for files and folders",
+  "scripts": {
+    "start": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "dev": "vite"
+  },
+  "dependencies": {
+    "@hello-pangea/dnd": "^17.0.0",
+    "@mantine/core": "^6.0.4",
+    "@mantine/hooks": "^6.0.4",
+    "@mantine/notifications": "^6.0.4",
+    "@tabler/icons-react": "^3.28.1",
+    "@tanstack/react-query": "^4.32.0",
+    "axios": "^1.5.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "socket.io-client": "^4.7.2",
+    "uuid": "^11.0.5"
+  },
+  "devDependencies": {
+    "@types/react": "^18.0.40",
+    "@types/react-dom": "^18.2.7",
+    "typescript": "^5.2.2",
+    "vite": "^4.4.9"
+  },
+  "author": "pbhopalka",
+  "license": "ISC"
+}
