@@ -5,22 +5,13 @@ import { queryConstants } from "./queryConstants";
 export const useFolders = () => {
   const queryClient = useQueryClient();
 
-  // Fetch folders
-  const { data: storage, isLoading } = useQuery(
-    queryConstants.listFolders,
-    async () => {
-      const response = await api.get("/data");
-      return response.data;
-    }
-  );
-
   // Add a new folder
   const addFolderMutation = useMutation(
     (newFolder: { name: string; parentId?: string }) =>
       api.post("/folders", newFolder),
     {
       onSuccess: () => {
-        queryClient.invalidateQueries(queryConstants.listFolders);
+        queryClient.invalidateQueries(queryConstants.listItems);
         queryClient.invalidateQueries(queryConstants.itemMetadata);
       },
     }
@@ -43,5 +34,5 @@ export const useFolders = () => {
     updateFolderMutation.mutate({ folderId: itemId, isOpen });
   };
 
-  return { storage, isLoading, addFolder, updateFolderState };
+  return { addFolder, updateFolderState };
 };

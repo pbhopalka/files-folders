@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Draggable } from "@hello-pangea/dnd";
 import { Card, Group, Text, ActionIcon } from "@mantine/core";
 import { IconTrash } from "@tabler/icons-react";
@@ -12,11 +12,17 @@ interface ItemCardProps {
 export const ItemCard = ({ itemId, index }: ItemCardProps): JSX.Element => {
   const { itemMetadata, deleteItem } = useItems();
 
-  if (!itemMetadata) {
+  const [metadata, setMetadata] = useState(itemMetadata);
+
+  useEffect(() => {
+    setMetadata(itemMetadata);
+  }, [itemMetadata]);
+
+  if (!metadata) {
     return <Card>Error: Item metadata is not available.</Card>;
   }
 
-  const item = itemMetadata[itemId];
+  const item = metadata[itemId];
 
   if (!item) {
     return <Card>Error: Item not found.</Card>;

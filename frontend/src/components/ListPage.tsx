@@ -1,10 +1,8 @@
-import { Folder, useListFoldersQuery } from "../hooks/useFolders";
-import { Item, useListItemsQuery } from "../hooks/useItems";
 import { FolderCard } from "./FolderCard";
 import { useItems } from "../hooks/useNewItems";
-import { Box, Button, Group, Stack } from "@mantine/core";
-import { Draggable, Droppable } from "@hello-pangea/dnd";
+import { Box, Group } from "@mantine/core";
 import { ItemCard } from "./ItemCard";
+import { useEffect, useState } from "react";
 
 interface ListPageProps {
   folderId: string;
@@ -19,15 +17,26 @@ export const ListPage = ({
 }: ListPageProps) => {
   const { isLoading, storage, itemMetadata } = useItems();
 
+  const [storageOrder, setStorageOrder] = useState(storage);
+  const [metadata, setMetadata] = useState(itemMetadata);
+
+  useEffect(() => {
+    setStorageOrder(storage);
+  }, [storage]);
+
+  useEffect(() => {
+    setMetadata(itemMetadata);
+  }, [itemMetadata]);
+
   if (isLoading) {
     return <Box>Loading...</Box>;
   }
 
-  if (!itemMetadata) {
+  if (!metadata) {
     return <Box>Error: Item metadata is not available.</Box>;
   }
 
-  const rootElement = storage[folderId] || [];
+  const rootElement = storageOrder[folderId] || [];
 
   if (rootElement.length === 0) {
     return <Box>No items yet. Add a new item or folder</Box>;
@@ -36,7 +45,7 @@ export const ListPage = ({
   return (
     <Group>
       {rootElement.map((element, index) => {
-        const item = itemMetadata[element];
+        const item = metadata[element];
         if (!item) {
           return <Box key={element}>Error: Item not found.</Box>;
         }

@@ -77,12 +77,13 @@ app.post("/api/folders", (req, res) => {
     id: folderId,
     name: name,
     type: "folder",
-    isOpen: false,
+    isOpen: true,
   };
   itemMetadata[folderId] = newItem;
 
   storage[parentId].push(folderId);
   storage[folderId] = []; // Create a new empty folder entry
+
   emitUpdate();
   res.json({ id: folderId, name });
 });

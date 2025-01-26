@@ -31,11 +31,6 @@ interface FolderProps {
   onFolderAdd: (folderId: string) => void;
 }
 
-enum ModalState {
-  FILE_ADD = "FILE_ADD",
-  FOLDER_ADD = "FOLDER_ADD",
-}
-
 export const FolderCard = ({
   itemId,
   index,
