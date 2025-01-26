@@ -2,7 +2,7 @@ import { Folder, useListFoldersQuery } from "../hooks/useFolders";
 import { Item, useListItemsQuery } from "../hooks/useItems";
 import { FolderCard } from "./FolderCard";
 import { useItems } from "../hooks/useNewItems";
-import { Box, Button, Stack } from "@mantine/core";
+import { Box, Button, Group, Stack } from "@mantine/core";
 import { Draggable, Droppable } from "@hello-pangea/dnd";
 import { ItemCard } from "./ItemCard";
 
@@ -34,7 +34,7 @@ export const ListPage = ({
   }
 
   return (
-    <Stack>
+    <Group>
       {rootElement.map((element, index) => {
         const item = itemMetadata[element];
         if (!item) {
@@ -57,6 +57,6 @@ export const ListPage = ({
           />
         );
       })}
-    </Stack>
+    </Group>
   );
 };
