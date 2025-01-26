@@ -1,40 +1,37 @@
-import { Modal, Button, TextInput } from "@mantine/core";
+import { Modal, Button, TextInput, Stack } from "@mantine/core";
 import { useState } from "react";
-import { addItem, Item } from "../hooks/useItems";
+import { useItems } from "../hooks/useNewItems";
 
 interface Props {
-  isOpen: boolean;
   onClose: () => void;
+  folderId: string;
 }
 
-export const AddItemModal = ({ isOpen, onClose }: Props) => {
+export const AddItemModal = ({ onClose, folderId }: Props) => {
   const [title, setTitle] = useState("");
   const [icon, setIcon] = useState("");
-  const { mutate } = addItem();
+  const { addFile } = useItems();
 
   const handleSubmit = () => {
-    const itemToAdd: Item = {
-      title,
-      icon,
-      order: 0,
-    };
-    mutate(itemToAdd);
+    addFile(title, folderId);
     onClose();
   };
 
   return (
-    <Modal opened={isOpen} onClose={onClose} title="Add New Item">
-      <TextInput
-        label="Title"
-        value={title}
-        onChange={(e) => setTitle(e.target.value)}
-      />
-      <TextInput
-        label="Icon"
-        value={icon}
-        onChange={(e) => setIcon(e.target.value)}
-      />
-      <Button onClick={handleSubmit}>Add Item</Button>
+    <Modal opened onClose={onClose} title="Add New Item">
+      <Stack spacing="sm">
+        <TextInput
+          label="Title"
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
+        />
+        <TextInput
+          label="Icon"
+          value={icon}
+          onChange={(e) => setIcon(e.target.value)}
+        />
+        <Button onClick={handleSubmit}>Add Item</Button>
+      </Stack>
     </Modal>
   );
 };
